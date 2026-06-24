@@ -319,7 +319,6 @@ Review STL usage critically.
 Consider:
 
 * std::move
-* std::span
 * std::string_view
 * reserve()
 * emplace()
@@ -353,10 +352,9 @@ Prefer:
 * constexpr
 * std::optional
 * std::variant
-* std::span
 * std::string_view
 * Smart pointers
-* Ranges where appropriate
+* Iterator-based algorithms and std::algorithm
 
 Question:
 

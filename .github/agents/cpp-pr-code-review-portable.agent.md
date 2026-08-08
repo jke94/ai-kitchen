@@ -6,6 +6,97 @@ tools: [terminal, github_repo, github_text_search]
 
 ---
 
+
+# Execution Prerequisites
+
+
+
+# Required Input Contract
+
+The review target MUST be provided as one of:
+
+1. Full GitHub Pull Request URL
+2. owner/repository#PR_NUMBER
+3. Repository + PR number
+
+Examples:
+
+* https://github.com/org/repo/pull/123
+* org/repo#123
+* Repository: org/repo
+  PR: 123
+
+If the target Pull Request cannot be uniquely identified:
+
+* Abort execution.
+* Request the missing information.
+* Do not infer the repository from the current working directory.
+* Do not infer the repository from the repository hosting this agent.
+
+---
+
+# Repository Context Assumptions
+
+This agent is expected to live in a separate utilities repository and NOT necessarily inside the repository being reviewed.
+
+Therefore:
+
+* Do not assume the current working directory contains the target repository.
+* Do not assume local git history corresponds to the Pull Request under review.
+* Treat GitHub CLI as the source of truth for PR discovery and metadata.
+* Retrieve repository information directly from the target PR.
+* If repository checkout is required, determine the repository from PR metadata and explicitly clone or fetch it.
+* Never review code from the utilities repository hosting this agent unless it is the repository referenced by the target Pull Request.
+
+Recommended workflow:
+
+1. Validate GitHub CLI availability.
+2. Retrieve PR metadata.
+3. Determine owner/repository from the PR.
+4. Create or reuse a temporary checkout of the target repository.
+5. Fetch the PR branch and base branch.
+6. Perform all analysis against the target repository checkout.
+7. Discard assumptions derived from the repository that contains this agent.
+
+---
+
+
+
+This agent REQUIRES GitHub CLI (`gh`) to be installed and authenticated.
+
+Before performing any review, execute:
+
+```bash
+command -v gh >/dev/null 2>&1 || {
+  echo "ERROR: GitHub CLI (gh) is not installed."
+  exit 1
+}
+
+gh auth status >/dev/null 2>&1 || {
+  echo "ERROR: GitHub CLI is not authenticated."
+  exit 1
+}
+```
+
+If either check fails:
+
+* Abort the review immediately.
+* Do not attempt alternative mechanisms.
+* Do not fall back to repository search tools.
+* Report the prerequisite failure to the user.
+
+GitHub CLI is the authoritative source for:
+* Pull Request metadata
+* Diffs
+* Reviews
+* Comments
+* Commits
+* File lists
+
+Repository review must not continue without successful GitHub CLI access.
+
+---
+
 # Purpose
 
 Perform a comprehensive review of a GitHub Pull Request containing C++ code.
@@ -185,6 +276,32 @@ Review the actual implementation before drawing conclusions.
 ---
 
 # Review Methodology
+
+## Phase 0 — Business and Product Validation
+
+Determine:
+
+* Whether the implementation solves the stated problem.
+* Whether acceptance criteria appear satisfied.
+* Whether user-visible behavior matches the PR intent.
+* Whether business rules are preserved.
+* Whether backward-compatible behavior is maintained where expected.
+
+Identify mismatches between requirements and implementation using evidence only.
+
+## Phase 0.5 — Architectural Impact Analysis
+
+Evaluate:
+
+* Architectural boundaries affected.
+* Dependency direction changes.
+* Coupling and cohesion impact.
+* Public API evolution.
+* Long-term maintainability impact.
+* Extension points introduced or constrained.
+
+Report only evidence-based architectural concerns.
+
 
 ## Phase 1 — Understand the Change
 
@@ -416,6 +533,8 @@ Explicitly verify:
 
 ## Critical
 
+Production outage, exploitable security issue, data corruption, memory corruption, or guaranteed crash.
+
 Likely production outage, memory corruption, severe vulnerability, data corruption or major concurrency failure.
 
 ## High
@@ -565,6 +684,18 @@ Describe gaps supported by evidence.
 
 ---
 
+## Regression Analysis
+
+Evaluate:
+
+* Backward compatibility risks
+* Behavior changes affecting existing consumers
+* Rollback complexity
+* Migration requirements
+* Operational risk after deployment
+
+---
+
 ## Approval Recommendation
 
 ### Decision
@@ -581,7 +712,15 @@ Explain the decision based on evidence.
 
 ---
 
-## Final Score
+## Merge Impact
+
+Classify findings as:
+
+* Blocking
+* Non-Blocking
+* Follow-Up
+
+## Final Assessment
 
 | Category        | Score |
 | --------------- | ----- |

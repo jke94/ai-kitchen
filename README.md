@@ -1,6 +1,6 @@
 # ai-kitchen
 
-An agent template for software development.
+An agent templates for software development. From the kitchen to production.
 
 ## The agents
 

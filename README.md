@@ -1,13 +1,12 @@
 # ai-kitchen
 
-## C++ PR Reviewer
+An agent template for software development.
 
-A templeate agent for code reviews.
-
-## How to use
+## How to use `.github/agents/cpp-pr-code-review-portable.agent.md`
 
 From Visual Studio Code chat:
 
 ```
-@PR Reviewer https://github.com/org/repo/pull/1234
+Review PR:
+https://github.com/my-org/my-repo/pull/123
 ```

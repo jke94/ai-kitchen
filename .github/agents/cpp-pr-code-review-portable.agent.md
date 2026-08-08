@@ -10,6 +10,31 @@ tools: [terminal, github_repo, github_text_search]
 # Execution Prerequisites
 
 
+
+# Required Input Contract
+
+The review target MUST be provided as one of:
+
+1. Full GitHub Pull Request URL
+2. owner/repository#PR_NUMBER
+3. Repository + PR number
+
+Examples:
+
+* https://github.com/org/repo/pull/123
+* org/repo#123
+* Repository: org/repo
+  PR: 123
+
+If the target Pull Request cannot be uniquely identified:
+
+* Abort execution.
+* Request the missing information.
+* Do not infer the repository from the current working directory.
+* Do not infer the repository from the repository hosting this agent.
+
+---
+
 # Repository Context Assumptions
 
 This agent is expected to live in a separate utilities repository and NOT necessarily inside the repository being reviewed.

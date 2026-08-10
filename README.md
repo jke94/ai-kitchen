@@ -50,12 +50,22 @@ Focus on:
 - Race conditions and data races
 - Deadlocks, livelocks, starvation
 - Task scheduling and queue management
+- Task dependency chains and pool-exhaustion risks
+- Future/promise and async callback correctness
 - Blocking HTTP/I/O operations inside workers
-- Shutdown and cancellation behavior
+- Shutdown, cancellation and queue-draining behavior
 - Exception handling in worker threads
-- Scalability and lock contention
-- Backpressure and queue growth risks
-- Lifetime and ownership issues
+- Scalability, lock contention and backpressure
+- Lifetime, ownership and capture issues
 
-Provide findings using the format defined in the agent file and conclude with a Go/No-Go recommendation for merging into main.
+Requirements:
+- Include code snippets as evidence.
+- Trace the execution path for each finding.
+- Explicitly state assumptions and unknowns.
+- Flag any task that may wait on another task executed by the same pool.
+
+Provide findings using the format defined in the agent file and conclude with:
+- Total findings by severity
+- Overall risk assessment
+- Go / No-Go recommendation for merging into main
 ```

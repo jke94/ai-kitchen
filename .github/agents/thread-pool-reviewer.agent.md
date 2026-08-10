@@ -45,6 +45,33 @@ Your task is to review the changes in the current branch against `main` and iden
 - False sharing
 - Oversubscription / undersized pool
 
+
+### Advanced Concurrency Validation
+- Future/promise correctness
+- Async callback ownership and capture safety
+- Tasks waiting on tasks from the same pool
+- Dependency-chain deadlocks
+- Thread-pool exhaustion scenarios
+
+### Shutdown Invariants
+Verify:
+- Acceptance/rejection of new tasks during shutdown
+- Queue draining behavior
+- Cancellation semantics
+- Worker join guarantees
+- Object lifetime during shutdown
+
+### Evidence Requirements
+- Include relevant code snippets
+- Trace the execution path involved
+- State assumptions and unknowns explicitly
+
+### Performance Validation
+- Potential throughput regressions
+- Latency impact of blocking operations
+- Queue growth under sustained load
+
+
 ### Operational Concerns
 - Graceful shutdown
 - Cancellation handling

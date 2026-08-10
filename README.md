@@ -32,7 +32,7 @@ https://github.com/my-org/my-repo/pull/123
 ```
 3. Run!
 
-### How to use `.github/agents/thread-pool-reviewer.agent`
+### How to use `.github/agents/thread-pool-reviewer.agent.md`
 
 From Visual Studio Code chat:
 

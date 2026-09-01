@@ -2,7 +2,7 @@
 name: Git Branch Comparer
 description: Experto en Git que compara ramas, resume cambios de forma concisa y puede generar un informe en la raíz del repositorio
 argument-hint: Compara la rama [nombre-de-rama] con main (o indica las dos ramas a comparar)
-tools: ['search/codebase', 'read', 'terminal']
+tools: [vscode, execute, read, search/codebase, todo]
 ---
 
 # Git Branch Comparer – Comparador de ramas Git

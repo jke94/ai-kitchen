@@ -4,7 +4,7 @@ name: Git Branch Change Enumerator
 description: Enumerates the logical changes introduced by a branch compared to a base branch
 argument-hint: Enumerate the changes from [branch] compared to main
 tools: [vscode, execute, read, search/codebase]
------------------------------------------------
+---
 
 # Git Branch Change Enumerator
 

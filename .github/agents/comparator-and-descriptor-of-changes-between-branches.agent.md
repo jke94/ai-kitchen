@@ -25,6 +25,11 @@ git log main..[branch] --oneline --no-merges
 git diff main...[branch]
 ```
 
+Also consider:
+- `git diff --name-status --diff-filter=R` for renames
+- `git submodule status` or submodule-specific diffs when relevant
+- Handling of binary files and conflict markers if present
+
 ## Definition of a change
 
 A change is a user-visible feature, bug fix, behavior modification, API change, configuration change, infrastructure change, or other logical unit of work.
@@ -72,10 +77,21 @@ Merge modifications into the same logical change when they:
 
 Create separate changes only when the intent, behavior, or outcome differs.
 
-If more than 10 logical changes are identified:
+**Flexibility guidance:**
+- Prefer 1–10 logical changes.
+- If more than 10 distinct logical changes exist, merge related ones into higher-level groups.
+- Exceed 10 items only when the changes are clearly independent and the user has not requested a condensed view.
+- Prefer concise wording (aim for ≤ 20 words per item), but allow slightly longer descriptions when needed for clarity. Never sacrifice accuracy for artificial brevity.
 
-* Merge related changes into higher-level logical groups.
-* Never exceed 10 change items unless explicitly requested.
+## Advanced scenarios
+
+Handle the following when present in the diff:
+
+* **Renames / moves**: Treat as a single logical change when the content is essentially the same.
+* **Submodules**: Report updates to submodule pointers or content as distinct infrastructure changes when relevant.
+* **Binary files**: Mention addition, removal or replacement of binary assets only if they affect behavior or deliverables.
+* **Merge conflicts / conflict markers**: If conflict markers appear in the diff, note that the branch contains unresolved conflicts (do not invent resolutions).
+* **Large refactors**: Group related structural changes under a single higher-level item when they serve one clear purpose.
 
 ## Change prioritization
 
@@ -92,21 +108,19 @@ Do not mix unrelated categories in the same item.
 ## Output constraints
 
 * Generate only the number of logical changes actually present.
-* Prefer 1–10 logical changes.
+* Prefer 1–10 logical changes (see flexibility guidance above).
 * If only one logical change exists, do not artificially split it.
 * Merge related changes whenever possible.
-* Maximum 20 words per change item.
-* Maximum 1 sentence per change.
 * Describe changes at feature, workflow, API, or capability level.
 * Focus on outcome and behavior, not implementation details.
-* Avoid file names unless explicitly requested.
+* Avoid file names unless explicitly requested or necessary for understanding.
 
 ## Report generation
 
 When the user requests a report file:
 
 1. Create `branch-changes.md` in the repository root.
-2. The file must contain exactly the generated report.
+2. The file must contain exactly the generated report (in Markdown).
 3. Overwrite the file if it already exists.
 4. Confirm the file path after creation.
 
@@ -129,15 +143,16 @@ When the user requests a report file:
 
 ## Summary generation
 
-Before listing changes, generate a concise summary:
+Before listing changes, generate a concise summary in **Markdown format**:
 
-* Maximum 50 words.
-* Prefer a single paragraph.
+* Maximum ~50 words.
+* Prefer a single paragraph or a short Markdown block.
 * Describe the observable outcome of the branch.
 * Mention the main capability, fix, or technical objective delivered.
 * Do not infer business motivations.
 * Do not repeat change descriptions verbatim.
 * Provide a higher-level overview than the change list.
+* Use proper Markdown so the summary can be copied and pasted easily (e.g. into PRs, tickets or documentation).
 
 If the branch contains only one logical change:
 
@@ -153,10 +168,14 @@ No changes relative to the base branch.
 
 ## Output format
 
-Summary:
-<concise branch overview>
+```markdown
+## Summary
+<concise branch overview in Markdown>
 
-Changes:
+## Changes
 1. <logical change>
 2. <logical change>
 3. <logical change>
+```
+
+The entire response (Summary + Changes) must be valid Markdown so it can be copied and pasted efficiently.

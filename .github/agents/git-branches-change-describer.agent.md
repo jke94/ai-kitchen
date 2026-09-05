@@ -1,5 +1,5 @@
 ---
-name: Git branches change describer
+name: Comparator and descriptor of changes between branches
 description: Enumerates the logical changes introduced by a branch compared with a base branch (generally 'main' or 'master').
 argument-hint: Enumerate the changes from [branch] compared to [base branch] (default: main). If only one branch is provided, it will be compared to main.
 tools: [vscode, execute, read, search/codebase]

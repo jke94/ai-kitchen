@@ -46,8 +46,6 @@ If commit messages and code changes differ, rely on the code changes.
 
 Generate a concise engineering changelog describing the logical changes introduced by the branch compared to the base branch.
 
-Group related code modifications into a single item and describe the resulting feature, fix, behavior change, configuration update, or infrastructure change.
-
 Use the code diff as the primary source of truth.
 
 Do not describe files individually, commits individually, or low-level implementation details unless necessary to understand the change.
@@ -74,6 +72,11 @@ Merge modifications into the same logical change when they:
 
 Create separate changes only when the intent, behavior, or outcome differs.
 
+If more than 10 logical changes are identified:
+
+* Merge related changes into higher-level logical groups.
+* Never exceed 10 change items unless explicitly requested.
+
 ## Change prioritization
 
 Describe changes in the following order:
@@ -92,7 +95,9 @@ Do not mix unrelated categories in the same item.
 * Prefer 1–10 logical changes.
 * If only one logical change exists, do not artificially split it.
 * Merge related changes whenever possible.
+* Maximum 20 words per change item.
 * Maximum 1 sentence per change.
+* Describe changes at feature, workflow, API, or capability level.
 * Focus on outcome and behavior, not implementation details.
 * Avoid file names unless explicitly requested.
 
@@ -108,6 +113,8 @@ When the user requests a report file:
 ## Rules
 
 * Describe the intent and outcome of the change, not the raw diff.
+* Describe observable outcomes only.
+* Do not infer business motivations, objectives, or goals.
 * Do not include risk analysis.
 * Do not include impact analysis.
 * Do not include breaking-change assessments.
@@ -117,25 +124,32 @@ When the user requests a report file:
 * Do not include commit counts.
 * Do not include file counts.
 * Do not include diff snippets unless explicitly requested.
-* Do not infer business goals or motivations.
 * Only describe changes that can be directly supported by the code diff.
-* If no changes exist relative to the base branch, state it clearly.
 * Always write the output in English, regardless of the language used by the user.
 
 ## Summary generation
 
 Before listing changes, generate a concise summary:
 
-* Maximum 2–3 sentences.
-* Describe the overall purpose of the branch.
+* Maximum 50 words.
+* Prefer a single paragraph.
+* Describe the observable outcome of the branch.
 * Mention the main capability, fix, or technical objective delivered.
-* Do not repeat individual change descriptions verbatim.
+* Do not infer business motivations.
+* Do not repeat change descriptions verbatim.
+* Provide a higher-level overview than the change list.
 
 If the branch contains only one logical change:
 
 * Output the summary.
 * Output a single change item.
 * Do not create additional sections or artificial groupings.
+
+## No-change handling
+
+If no logical changes exist relative to the base branch, output exactly:
+
+No changes relative to the base branch.
 
 ## Output format
 

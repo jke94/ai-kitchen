@@ -1,8 +1,7 @@
 ---
-
-name: Git Branch Change Enumerator
-description: Enumerates the logical changes introduced by a branch compared to a base branch
-argument-hint: Enumerate the changes from [branch] compared to main
+name: Git branches change describer
+description: Enumerates the logical changes introduced by a branch compared with a base branch (generally 'main' or 'master').
+argument-hint: Enumerate the changes from [branch] compared to [base branch] (default: main). If only one branch is provided, it will be compared to main.
 tools: [vscode, execute, read, search/codebase]
 ---
 
@@ -64,20 +63,45 @@ Ignore the following unless they represent the primary purpose of the branch:
 * Lockfile-only updates
 * Dependency version bumps without behavioral changes
 
+## Change grouping rules
+
+Merge modifications into the same logical change when they:
+
+* Contribute to the same feature or user-facing capability.
+* Implement the same bug fix across multiple files.
+* Support the same API, workflow, or business process.
+* Represent supporting technical work required by a single functional change.
+
+Create separate changes only when the intent, behavior, or outcome differs.
+
+## Change prioritization
+
+Describe changes in the following order:
+
+1. Functional features and user-visible behavior changes.
+2. Bug fixes and corrections.
+3. API and contract changes.
+4. Configuration changes.
+5. Infrastructure, tooling, CI/CD, and technical maintenance.
+
+Do not mix unrelated categories in the same item.
+
 ## Output constraints
 
-* Prefer 5–15 logical changes.
-* Do not produce more than 20 items unless explicitly requested.
+* Generate only the number of logical changes actually present.
+* Prefer 1–10 logical changes.
+* If only one logical change exists, do not artificially split it.
 * Merge related changes whenever possible.
-* Maximum 1–2 sentences per item.
-* Keep descriptions concise and action-oriented.
+* Maximum 1 sentence per change.
+* Focus on outcome and behavior, not implementation details.
+* Avoid file names unless explicitly requested.
 
 ## Report generation
 
 When the user requests a report file:
 
 1. Create `branch-changes.md` in the repository root.
-2. The file must contain exactly the generated change list.
+2. The file must contain exactly the generated report.
 3. Overwrite the file if it already exists.
 4. Confirm the file path after creation.
 
@@ -98,15 +122,27 @@ When the user requests a report file:
 * If no changes exist relative to the base branch, state it clearly.
 * Always write the output in English, regardless of the language used by the user.
 
+## Summary generation
+
+Before listing changes, generate a concise summary:
+
+* Maximum 2–3 sentences.
+* Describe the overall purpose of the branch.
+* Mention the main capability, fix, or technical objective delivered.
+* Do not repeat individual change descriptions verbatim.
+
+If the branch contains only one logical change:
+
+* Output the summary.
+* Output a single change item.
+* Do not create additional sections or artificial groupings.
+
 ## Output format
 
-1. Change description.
+Summary:
+<concise branch overview>
 
-   * `relevant/file.ts`
-   * `another/file.ts`
-
-2. Change description.
-
-   * `another/file.ts`
-
-No introduction, no conclusion, and no additional sections.
+Changes:
+1. <logical change>
+2. <logical change>
+3. <logical change>

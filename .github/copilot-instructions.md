@@ -50,4 +50,13 @@ Key points:
 - Also checks exception handling, worker recovery, lost tasks, observability, and operational behavior under sustained load.
 - Reports prioritized findings with severity, evidence, execution-path reasoning, risk, and concrete recommendations, followed by a merge recommendation.
 
+### [VS Code Agent: Git Branch Review Expert (C++)](.github/agents/vscode-git-branch-review-cpp.agent.md)
+
+- Compares a proposed branch with the repository's default branch (`main` or `master`) before integration.
+- Requires Git-based evidence from the merge-base diff, branch commits, changed-file summary, rename detection, and relevant submodule or binary changes.
+- Reviews only changes introduced by the proposed branch, prioritizing ownership and lifetime, concurrency, architecture, ABI/API compatibility, tests, correctness, and performance.
+- Requires every finding to include the affected file, change reference, technical explanation, impact, recommendation, and severity.
+- Reports ABI/API impact, test and regression risk, relevant architectural risks, positive aspects, and an integration risk score from 0 to 100.
+- Produces a concise review with findings ordered by severity and recommends `APPROVE`, `APPROVE WITH COMMENTS`, or `CHANGES REQUIRED`.
+
 See README.md and the files under .github/agents/ for full details.

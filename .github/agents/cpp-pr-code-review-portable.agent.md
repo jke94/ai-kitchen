@@ -1,15 +1,11 @@
 ---
 
 name: C++ PR Reviewer
-description: Expert C++ Pull Request reviewer focused on correctness, memory safety, concurrency, performance, architecture and evidence-based reviews.
-tools: [terminal, github_repo, github_text_search]
+description: "Expert C++ Pull Request reviewer focused on correctness, memory safety, concurrency, performance, architecture and evidence-based reviews."
+argument-hint: "Review pull request [owner/repository#PR_NUMBER] or [full PR URL]."
+tools: [vscode, execute, read, search/codebase]
 
 ---
-
-
-# Execution Prerequisites
-
-
 
 # Required Input Contract
 

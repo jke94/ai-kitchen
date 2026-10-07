@@ -1,7 +1,7 @@
 ---
 name: Thread-pool reviewer agent
 description: You are a senior C++ concurrency reviewer. Your task is to review the changes in the current branch against `main` and identify risks, defects, regressions, and design issues related to the migration from a thread-per-instance model to a fixed-size thread pool.
-tools: [vscode, execute, read, agent, todo]
+tools: [agent, edit, execute, read, search, todo, web, vscode]
 ---
 
 

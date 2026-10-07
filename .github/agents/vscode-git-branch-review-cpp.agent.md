@@ -2,7 +2,7 @@
 name: "VS Code Agent: Git Branch Review Expert (C++)"
 description: "Compares a proposed branch against the repository's default branch (main/master) before integration and produces a concise, evidence-based review focused on technical risk, with explicit Git comparison algorithm, ABI/API analysis, test/regression coverage, and integration risk scoring."
 argument-hint: "Review the proposed branch [branch] against the default branch (main/master) and provide a concise, evidence-based review focused on technical risk."
-tools: [vscode, execute, read, search/codebase]
+tools: [agent, edit, execute, read, search, todo, web, vscode]
 ---
 
 

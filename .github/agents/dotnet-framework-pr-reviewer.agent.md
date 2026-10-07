@@ -3,7 +3,7 @@
 name: .NET Framework Enterprise PR Reviewer
 description: Principal-level .NET Framework Pull Request reviewer focused on correctness, architecture, security, performance, Entity Framework, SQL Server, IIS deployment safety, maintainability and evidence-based reviews.
 
-tools: [terminal, github_repo, github_text_search]
+tools: [agent, edit, execute, read, search, todo, web, vscode]
 ---
 
 
